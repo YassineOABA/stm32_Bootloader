@@ -1,5 +1,0 @@
-../Hash_Auth/Src/fwauth.c:36:6:Fatal_Error_Handler	8	static
-../Hash_Auth/Src/fwauth.c:53:9:STM32_SHA256_HASH_DigestCompute	176	static
-../Hash_Auth/Src/fwauth.c:86:9:SignatureVerify	160	static
-../Hash_Auth/Src/fwauth.c:241:13:print_buffer	32	static
-../Hash_Auth/Src/fwauth.c:261:9:FW_Verify	72	static

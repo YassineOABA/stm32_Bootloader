@@ -1,4 +1,0 @@
-../Middlewares/ST/STM32_Cryptographic/legacy_v3/src/ecc/legacy_v3_ed25519.c:25:16:cmox_helper_ed25519_rv_convert	5
-../Middlewares/ST/STM32_Cryptographic/legacy_v3/src/ecc/legacy_v3_ed25519.c:49:9:ED25519keyGen	1
-../Middlewares/ST/STM32_Cryptographic/legacy_v3/src/ecc/legacy_v3_ed25519.c:76:9:ED25519sign	1
-../Middlewares/ST/STM32_Cryptographic/legacy_v3/src/ecc/legacy_v3_ed25519.c:106:9:ED25519verify	2
