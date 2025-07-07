@@ -73,6 +73,13 @@ void jump_to_application(void)
   uint32_t jump_address ;
   Function_Pointer  p_jump_to_function;
 
+  /* Initialize loader's Stack Pointer */
+  __set_MSP(*(__IO uint32_t *)(APP_REGION_ROM_START));
+
+  /* OPTIONAL: Barrier to flush pipeline and ensure MSP is set before continuing */
+  __DSB();
+  __ISB();
+
   /* Destroy the Volatile data and CSTACK in SRAM used by Secure Boot in order to prevent any access to sensitive data
      from the loader.
   */
@@ -81,9 +88,6 @@ void jump_to_application(void)
   /* Initialize address to jump */
   jump_address = *(__IO uint32_t *)(((uint32_t)APP_REGION_ROM_START + 4));
   p_jump_to_function = (Function_Pointer) jump_address;
-
-  /* Initialize loader's Stack Pointer */
-  __set_MSP(*(__IO uint32_t *)(APP_REGION_ROM_START));
 
   /* Jump into loader */
   p_jump_to_function();

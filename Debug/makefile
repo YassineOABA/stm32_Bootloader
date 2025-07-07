@@ -66,6 +66,9 @@ default.size.stdout \
 OBJDUMP_LIST += \
 stm32_Bootloader.list \
 
+OBJCOPY_HEX += \
+stm32_Bootloader.hex \
+
 OBJCOPY_BIN += \
 stm32_Bootloader.bin \
 
@@ -77,8 +80,8 @@ all: main-build
 main-build: stm32_Bootloader.elf secondary-outputs
 
 # Tool invocations
-stm32_Bootloader.elf stm32_Bootloader.map: $(OBJS) $(USER_OBJS) C:\Users\Yassine\Desktop\projects\stm32_Bootloader\STM32F407VGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "stm32_Bootloader.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\Yassine\Desktop\projects\stm32_Bootloader\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="stm32_Bootloader.map" -Wl,--gc-sections -static -L../Middlewares/ST/STM32_Cryptographic/lib --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+stm32_Bootloader.elf stm32_Bootloader.map: $(OBJS) $(USER_OBJS) W:\projects\stm32xx\stm32f407\stm32f407_sw\stm32_Bootloader\STM32F407VGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "stm32_Bootloader.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"W:\projects\stm32xx\stm32f407\stm32f407_sw\stm32_Bootloader\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="stm32_Bootloader.map" -Wl,--gc-sections -static -L../Middlewares/ST/STM32_Cryptographic/lib --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -92,6 +95,11 @@ stm32_Bootloader.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS
 	@echo 'Finished building: $@'
 	@echo ' '
 
+stm32_Bootloader.hex: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objcopy  -O ihex $(EXECUTABLES) "stm32_Bootloader.hex"
+	@echo 'Finished building: $@'
+	@echo ' '
+
 stm32_Bootloader.bin: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	arm-none-eabi-objcopy  -O binary $(EXECUTABLES) "stm32_Bootloader.bin"
 	@echo 'Finished building: $@'
@@ -99,10 +107,10 @@ stm32_Bootloader.bin: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 
 # Other Targets
 clean:
-	-$(RM) default.size.stdout stm32_Bootloader.bin stm32_Bootloader.elf stm32_Bootloader.list stm32_Bootloader.map
+	-$(RM) default.size.stdout stm32_Bootloader.bin stm32_Bootloader.elf stm32_Bootloader.hex stm32_Bootloader.list stm32_Bootloader.map
 	-@echo ' '
 
-secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST) $(OBJCOPY_BIN)
+secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST) $(OBJCOPY_HEX) $(OBJCOPY_BIN)
 
 fail-specified-linker-script-missing:
 	@echo 'Error: Cannot find the specified linker script. Check the linker settings in the build configuration.'

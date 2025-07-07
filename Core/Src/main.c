@@ -117,6 +117,7 @@ int main(void)
 
   printf("\r\n=============> Jump to application \r\n");
 
+  HAL_Delay(100);
   MX_USB_DEVICE_DeInit();
   jump_to_application();
   /* USER CODE END 2 */

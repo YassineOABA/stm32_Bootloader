@@ -1,0 +1,3 @@
+../Hash_Auth/Src/fwauth.c:36:6:Fatal_Error_Handler	1
+../Hash_Auth/Src/fwauth.c:53:9:STM32_SHA256_HASH_DigestCompute	3
+../Hash_Auth/Src/fwauth.c:261:9:FW_Verify	36
